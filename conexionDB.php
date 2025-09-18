@@ -1,54 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+/*
+// Conexión a la base de datos
+function conectarBD() {
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "usuario_php";
+    $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>conexcion DB</title>
-</head>
+    if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+    }
+    return $conn;
+}
 
+    */
+// Conexión a la base de datos
+function conectarBD() {
+    $host = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "usuario_php";
 
-<body>
+    $conn = new mysqli($host, $dbuser, $dbpass, $dbname);
 
-
-    <?php
-
-    function conectarDB()
-    {
-        $host = "localhost";
-        $dbuser = "root";
-        $password = "";
-        $dbname = "usuario_php";
-
-        $conexion = new mysqli($host, $dbuser, $password, $dbname);
-
-        if ($conexion->connect_error) {
-            die("Conexión fallida: " . $conexion->connect_error);
-        } else {
-            echo "Conexión exitosa a la base de datos.";
-        }
-        return $conexion;
+    if ($conn->connect_error) {
+        die("Error al conectar a la base de datos: " . $conn->connect_error);
+    } else {
+        echo "Conexión exitosa a la base de datos.";
     }
 
-
-    function consultarDB() {
-        $conexion = conectarDB();
-        $sql = "SELECT id, username AS username, password, created_at, updated_at FROM login_user";
-        $result = $conexion->query($sql);
-
-        $stmt = $conexion->prepare($sql);
-
-        if (!$result) {
-            die("Error en la consulta: " . $conexion->error);
-        } 
-        return $result;
-    }
-
-    $resultado = consultarDB()
-    
-    ?>
-
-</body>
-
-
-</html>
+    return $conn;
+}
+conectarBD();
+?>
